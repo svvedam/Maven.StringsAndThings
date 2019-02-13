@@ -1,6 +1,10 @@
 package io.zipcoder;
 
 
+import java.util.StringJoiner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * @author tariq
  */
@@ -15,7 +19,20 @@ public class StringsAndThings {
      *           countYZ("day fyyyz"); // Should return 2
      */
     public Integer countYZ(String input){
-        return null;
+
+        int totalCount = 0;
+        String str = "";
+
+        String[] arrOfStr = input.split(" ");
+
+        for (int i = 0; i< arrOfStr.length; i++){
+                str = arrOfStr[i];
+            for(int j = 0; j< str.length(); j++);{
+                  if((str.charAt(str.length()-1)=='y')||(str.charAt(str.length()-1)=='z'))
+                    totalCount++;
+            }
+        }
+        return totalCount;
     }
 
     /**
@@ -28,7 +45,18 @@ public class StringsAndThings {
      *           removeString("Hello there", "x") // Should return "Hello there"
      */
     public String removeString(String base, String remove){
-        return null;
+
+        String[] arrOfStr = base.split(" ");
+        StringJoiner joiner = new StringJoiner(" ");
+
+        for(int i = 0; i< arrOfStr.length; i++)
+        {
+            arrOfStr[i] = arrOfStr[i].replace(remove, "");
+            joiner.add(arrOfStr[i]);
+        }
+        String joined = joiner.toString();
+
+        return joined;
     }
 
     /**
@@ -40,8 +68,29 @@ public class StringsAndThings {
      *           containsEqualNumberOfIsAndNot("noisxxnotyynotxisi") // Should return true
      */
     public Boolean containsEqualNumberOfIsAndNot(String input){
-        return null;
+        int isCount = 0;
+        int notCount = 0;
+
+        Pattern isPattern = Pattern.compile("is");
+        Pattern notPattern = Pattern.compile("not");
+
+        String[] arrOfStr = input.split(" ");
+
+        for (int i = 0; i< arrOfStr.length; i++) {
+            Matcher isMatcher = isPattern.matcher(arrOfStr[i]);
+            Matcher notMatcher = notPattern.matcher(arrOfStr[i]);
+             while(isMatcher.find())
+                 isCount++;
+             while(notMatcher.find())
+                 notCount++;
+
+        }
+        if(isCount!=notCount)
+            return false;
+        else
+            return true;
     }
+
 
     /**
      * We'll say that a lowercase 'g' in a string is "happy" if there is another 'g' immediately to its left or right.
@@ -51,7 +100,19 @@ public class StringsAndThings {
      *           gHappy("xxggyygxx") // Should return  false
      */
     public Boolean gIsHappy(String input){
-        return null;
+        int gCount = 0;
+
+        Pattern gPattern = Pattern.compile("gg");
+
+            Matcher gMatcher = gPattern.matcher(input);
+
+            while(gMatcher.find())
+                gCount++;
+
+        if(gCount==1)
+            return true;
+        else
+            return false;
     }
 
 
@@ -63,6 +124,14 @@ public class StringsAndThings {
      *            countTriple("a") // Should return 0
      */
     public Integer countTriple(String input){
-        return null;
+       int len = input.length();
+       int count = 0;
+
+       for(int i = 0; i< len-2; i++){
+           char tmp = input.charAt(i);
+           if(tmp == input.charAt(i+1) && tmp == input.charAt(i+2))
+               count++;
+       }
+     return count;
     }
 }
